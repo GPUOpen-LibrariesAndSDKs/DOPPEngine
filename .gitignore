@@ -1,0 +1,27 @@
+## Ignore Visual Studio temporary files, build results, etc.
+
+# User-specific files
+*.suo
+*.user
+
+# Build results
+bin/
+build/
+
+# Visual Studo 2015 cache/options directory
+.vs/
+
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.db
+*.cachefile
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.cxlovr

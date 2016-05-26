@@ -1,16 +1,13 @@
-
 #version 420
-
-
-layout(location = 0) in vec4 inVertex;
-layout(location = 4) in vec2 inTexCoord;
-
-
 
 out vec2 Texcoord;
 
 void main( void )
 {
-    gl_Position = inVertex;
-    Texcoord    = inTexCoord;
+    switch(gl_VertexID)
+    {
+    case 0: gl_Position = vec4(-1, -1, 0, 1); Texcoord = vec2(0, 0); break;
+    case 1: gl_Position = vec4(-1, 3, 0, 1); Texcoord = vec2(0, 2); break;
+    case 2: gl_Position = vec4(3, -1, 0, 1); Texcoord = vec2(2, 0); break;
+    }
 }

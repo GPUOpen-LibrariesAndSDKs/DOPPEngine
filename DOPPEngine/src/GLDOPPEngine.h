@@ -51,8 +51,6 @@ public:
 
 protected:
 
-    void                createQuad();
-
     GLuint              m_uiDesktopTexture;
     GLuint              m_uiPresentTexture;
 

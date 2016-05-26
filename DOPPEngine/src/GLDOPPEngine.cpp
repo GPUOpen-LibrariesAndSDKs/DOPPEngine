@@ -122,8 +122,8 @@ bool GLDOPPEngine::initDOPP(unsigned int uiDesktop, bool bPresent)
 
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
     // Get size of the desktop. Usually this is the same values as returned by GetSystemMetrics(SM_CXSCREEN)
     // and GetSystemMetrics(SM_CYSCREEN). In some cases it might differ, e.g. if a rotated desktop is used.
@@ -164,6 +164,8 @@ bool GLDOPPEngine::initDOPP(unsigned int uiDesktop, bool bPresent)
     m_bStartPostProcessing = bPresent;
     m_bDoPresent = bPresent;
 
+    glGenVertexArrays(1, &m_uiVertexArray);
+
     return true;
 }
 
@@ -196,8 +198,6 @@ bool GLDOPPEngine::initEffect()
     m_pShader->bind();
 
     m_uiBaseMap = glGetUniformLocation(m_pShader->getProgram(), "baseMap");
-
-    createQuad();
 
     return true;
 }
@@ -266,35 +266,10 @@ void GLDOPPEngine::updateTexture()
     glUniform1i(m_uiBaseMap, 1);
 
     glBindVertexArray(m_uiVertexArray);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
     glBindVertexArray(0);
 
     m_pShader->unbind();
-}
-
-
-void GLDOPPEngine::createQuad()
-{
-    const float vec[] = { -1.0f, 1.0f, 0.0f, 1.0f,   -1.0f, -1.0f, 0.0f, 1.0f,   1.0f, 1.0f, 0.0f, 1.0f,    1.0f, -1.0f, 0.0f, 1.0f };
-    const float tex[] = {  0.0f, 1.0f,                0.0f,  0.0f,               1.0f, 1.0f,                1.0f,  0.0f             };
-
-    glGenVertexArrays(1, &m_uiVertexArray);
-    glBindVertexArray(m_uiVertexArray);
-
-    glGenBuffers(1, &m_uiVertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, m_uiVertexBuffer);
-
-    glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(float), vec, GL_STATIC_DRAW);
-    glBufferSubData(GL_ARRAY_BUFFER, 16 * sizeof(float), 8 * sizeof(float), tex);
-
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(4);
-
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
-    glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void*>(16 * sizeof(float)));
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
 }
 
 

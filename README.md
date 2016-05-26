@@ -1,11 +1,17 @@
 # DOPPEngine
 
-DOPPEngine demonstrates how to utilize the Display Output Post-Processing (DOPP) to create various effects manipulating the desktop before it is displayed. The following effects can be selected:
+DOPPEngine demonstrates how to utilize the Display Output Post-Processing (DOPP) to create various effects manipulating the desktop before it is displayed. 
+
+**The following effects can be selected:**
+* **Eyefinity Landscape / Portrait** can be used to divide an SLS surface horizontally or vertically and rotate the respective portion 180°. This allows multi-display users with panels having a narrow bezel or being bezeless on the left, right and top side to create a near seamless surface.
+
+  ![logo](http://32ipi028l5q82yhj72224m8j.wpengine.netdna-cdn.com/wp-content/uploads/2016/05/DOPPEngine1.png "DOPP SLS Rotation")
+
+
 * **Invert Colors** displays the desktop with inverted colors
 * **Edge Filter** uses an edge detection shader based on laplacian edge detection to highlight the edges on the screen
 * **Distort** applies a shader that dynamically distorts the captured screen
 * **Rotate** lets you select an angle by which the desktop gets rotated
-* **Eyefinity Landscape / Portrait** can be used to set up a seamless eyefinity surface with a configuration of multiple monitors that have a big border at one side by rotating the upper or left part of the desktop.
 
 ### Prerequisites
 * AMD FirePro&trade; GCN-based GPU

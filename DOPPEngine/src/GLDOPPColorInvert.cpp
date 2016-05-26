@@ -64,8 +64,6 @@ bool GLDOPPColorInvert::initEffect()
 
     m_uiBasmapLoc = glGetUniformLocation(m_pProgram->getProgram(), "baseMap");
 
-    createQuad();
-
     return true;
 }
 
@@ -82,7 +80,7 @@ void GLDOPPColorInvert::updateTexture()
     glUniform1i(m_uiBasmapLoc, 1);
 
     glBindVertexArray(m_uiVertexArray);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
     glBindVertexArray(0);
 
     glEnable(GL_DEPTH_TEST);

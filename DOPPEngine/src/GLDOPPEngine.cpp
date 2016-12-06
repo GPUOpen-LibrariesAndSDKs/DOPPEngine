@@ -69,7 +69,10 @@ GLDOPPEngine::GLDOPPEngine()
 
 GLDOPPEngine::~GLDOPPEngine()
 {
-    wglEnablePostProcessAMD(false);
+    if (m_bDoPresent)
+    {
+        wglEnablePostProcessAMD(false);
+    }
 
     glFinish();
 

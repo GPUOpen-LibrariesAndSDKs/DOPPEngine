@@ -254,11 +254,12 @@ void CDOPPEngineDlg::OnStart()
 
         if (bValidSelection && m_uiNumSelectedDesktops > 0)
         {
-            m_pThreads = new HANDLE[m_uiNumSelectedDesktops];
-            m_pThreadData = new THREAD_DATA[m_uiNumSelectedDesktops];
+            auto numDisplays = m_pDisplayManager->getNumDisplays();
+            m_pThreads = new HANDLE[numDisplays];
+            m_pThreadData = new THREAD_DATA[numDisplays];
 
-            memset(m_pThreads, 0, sizeof(HANDLE));
-            memset(m_pThreadData, 0, sizeof(THREAD_DATA));
+            memset(m_pThreads, 0, sizeof(HANDLE) * numDisplays);
+            memset(m_pThreadData, 0, sizeof(THREAD_DATA) * numDisplays);
 
             if (m_uiEffectSelection == ROTATE_DESKTOP && m_pRotationDlg)
             {
